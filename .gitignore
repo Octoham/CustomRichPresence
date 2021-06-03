@@ -26,7 +26,10 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
+[Bb]in/[Dd]ebug
+[Bb]in/x86
+[Bb]in/x64/*/DiscordRichPresence.*
+[Bb]in/x64/*/ref
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
