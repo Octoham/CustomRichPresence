@@ -23,8 +23,13 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: Upload
+    - name: Upload .dll
       uses: actions/upload-artifact@v2.2.4
       with:
-        name: build
-        path: extra-file.txt
+        name: build.dll
+        path: /home/runner/work/CustomRichPresence/CustomRichPresence/bin/Debug/net5.0/DiscordRichPresence.dll
+    - name: Upload .exe
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        name: build.exe
+        path: /home/runner/work/CustomRichPresence/CustomRichPresence/bin/Debug/net5.0/DiscordRichPresence.exe
