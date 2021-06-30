@@ -24,7 +24,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Upload
-      uses: actions/upload-artifact@v2.0.10
+      uses: actions/upload-artifact@v2.2.4
       with:
         name: build
         path: extra-file.txt
