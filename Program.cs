@@ -11,7 +11,7 @@ namespace DiscordRichPresence
             if (args.Length == 0)
             {
                 Console.WriteLine("Arguments: \n" +
-                    "Client ID\n" +
+                    "Client ID aka Application ID\n" +
                     "State\n" +
                     "Details\n" +
                     "Start Timestamp\n" +
@@ -26,13 +26,22 @@ namespace DiscordRichPresence
                     "Join Secret");
                 return;
             }
+#if DEBUG
+            System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "1");
+#endif
             var discord = new Discord.Discord(long.Parse(args[0]), (UInt64)Discord.CreateFlags.Default);
             Console.WriteLine("Discord.Discord created");
+
+            discord.SetLogHook(Discord.LogLevel.Debug, LogProblemsFunction);
+            Console.WriteLine("Error logging started");
+
             var activityManager = discord.GetActivityManager();
             Console.WriteLine("Activity manager obtained");
+
             Discord.Activity activity;
             activity = makeActivity(args);
             Console.WriteLine("Activity created");
+
             activityManager.UpdateActivity(activity,(res) => { if (res == Discord.Result.Ok) { Console.WriteLine("Discord Result OK!"); } else { Console.WriteLine("Discord Result NOT OK!"); } });
             for(; ; )
             {
@@ -40,6 +49,10 @@ namespace DiscordRichPresence
             }
 
             
+        }
+        static public void LogProblemsFunction(Discord.LogLevel level, string message)
+        {
+            Console.WriteLine("Discord:{0} - {1}", level, message);
         }
         static public Discord.Activity makeActivity(string[] args)
         {
